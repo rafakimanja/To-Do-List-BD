@@ -1,0 +1,13 @@
+
+body{
+    text-align: center;
+    font: normal 20pt Arial;
+    color: orangered;
+    background-color: #2B2D30;
+}
+
+.tabela{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

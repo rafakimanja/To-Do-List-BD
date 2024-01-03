@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu To Do List</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+{% block content %}
+    <h1>Minha Lista de Tarefas</h1>
+<form method="post" action="{% url 'index' %}">
+    {% csrf_token %}
+    <div class="adicionar">
+        <h3>Nova Tarefa</h3>
+        <input type="text" name="tarefa"> <input type="submit" value="Enviar">
+    </div>
+</form>
+    <br>
+    <div class="tabela">
+        <table border="1">
+            <tr>
+                <th>&nbsp;</th>
+                <th>Tarefa</th>
+                <th>Funções</th>
+            </tr>
+            {% for tarefa in tarefas %}
+            <tr>
+                <td><input type="checkbox" name="confirma" {% if tarefa.realizado %}checked{% endif %}></td>
+                <td>{{ tarefa.descricao }}</td>
+                <td>Teste</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+</body>
+</html>
