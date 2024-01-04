@@ -1,19 +1,25 @@
 from django.shortcuts import render
 from to_do.models import Tarefa
-# Create your views here.
+from datetime import datetime
 
 
 def index(request):
 
-    from datetime import datetime
+    tarefas = Tarefa.objects.all()
+    flag = False
 
     if request.method == 'POST':
 
         nome_tarefa = request.POST.get('tarefa')
 
-        tarefa = Tarefa(realizado=False, descricao=nome_tarefa, data=datetime.now())
-        tarefa.save()
+        for tf in tarefas:
 
-    tarefas = Tarefa.objects.all()
+            if tf.descricao == nome_tarefa:
+                print(f'{tf.descricao} ja cadastrado no banco de dados')
+                flag = True
+
+        if not flag:
+            tarefa = Tarefa(realizado=False, descricao=nome_tarefa, data=datetime.now())
+            tarefa.save()
 
     return render(request, 'index.html', {'tarefas': tarefas})
